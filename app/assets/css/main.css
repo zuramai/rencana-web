@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme {
+  --font-sans: 'Nunito', ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --ui-bg: #FFFBF5;
+  --ui-radius: 0.875rem;
+  --ui-border: #F0E6DA;
+  --ui-text: #1C1917;
+  --ui-text-muted: #78716C;
+  /* Bottom nav: 10px top padding + 48px tab + bottom padding (safe area, at least 24px) */
+  --nav-h: calc(58px + max(env(safe-area-inset-bottom), 24px));
+}
+
+body {
+  background: #FFFBF5;
+  padding-bottom: env(safe-area-inset-bottom);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* FigCraft "Card": white, radius 20, soft shadow */
+@utility card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px #1C19171A;
+}
