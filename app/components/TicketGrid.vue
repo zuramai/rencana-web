@@ -25,7 +25,7 @@ const columns = computed(() => [props.tickets.filter((_, i) => i % 2 === 0), pro
           <div class="h-[110px] w-full overflow-hidden bg-[#F1F1F1]">
             <img
               v-if="ticket.files[0]?.contentType.startsWith('image/')"
-              :src="`/api/files/${ticket.files[0].id}?size=thumb`"
+              :src="apiUrl(`/api/files/${ticket.files[0].id}?size=thumb`)"
               alt=""
               class="size-full object-cover"
               loading="lazy"

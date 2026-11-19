@@ -13,7 +13,7 @@ watch(file, (f, _, onCleanup) => {
   })
 }, { immediate: true })
 
-const src = computed(() => previewUrl.value ?? (props.existingId && !removed.value ? `/api/files/${props.existingId}?size=thumb` : null))
+const src = computed(() => previewUrl.value ?? (props.existingId && !removed.value ? apiUrl(`/api/files/${props.existingId}?size=thumb`) : null))
 const name = computed(() => file.value?.name ?? null)
 
 function pick(event: Event) {

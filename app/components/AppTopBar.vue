@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { user } = useUserSession()
+const { user } = useAuth()
 const initial = computed(() => user.value?.displayName.trim().charAt(0).toUpperCase() || 'K')
 </script>
 

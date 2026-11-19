@@ -1,9 +1,10 @@
 <script setup lang="ts">
+const { $api } = useNuxtApp()
 definePageMeta({ layout: 'auth' })
 
 const { t } = useI18n()
 const route = useRoute()
-const { fetch: refreshSession } = useUserSession()
+const { refresh: refreshSession } = useAuth()
 const errorMessage = useErrorMessage()
 
 const form = reactive({ username: '', password: '' })
@@ -14,7 +15,7 @@ async function submit() {
   pending.value = true
   error.value = null
   try {
-    await $fetch('/api/auth/login', { method: 'POST', body: form })
+    await $api('/api/auth/login', { method: 'POST', body: form })
     await refreshSession()
     await navigateTo('/travel')
   } catch (e) {

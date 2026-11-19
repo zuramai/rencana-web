@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { $api } = useNuxtApp()
 const open = defineModel<boolean>('open', { default: false })
 const props = defineProps<{
   planId: string
@@ -51,8 +52,8 @@ async function save() {
   }
   pending.value = true
   try {
-    if (props.cost) await $fetch(`/api/plans/${props.planId}/costs/${props.cost.id}`, { method: 'PATCH', body })
-    else await $fetch(`/api/plans/${props.planId}/costs`, { method: 'POST', body })
+    if (props.cost) await $api(`/api/plans/${props.planId}/costs/${props.cost.id}`, { method: 'PATCH', body })
+    else await $api(`/api/plans/${props.planId}/costs`, { method: 'POST', body })
     open.value = false
     emit('saved')
   } catch (e) {
@@ -66,7 +67,7 @@ async function remove() {
   if (!props.cost) return
   pending.value = true
   try {
-    await $fetch(`/api/plans/${props.planId}/costs/${props.cost.id}`, { method: 'DELETE' })
+    await $api(`/api/plans/${props.planId}/costs/${props.cost.id}`, { method: 'DELETE' })
     confirmOpen.value = false
     open.value = false
     emit('saved')

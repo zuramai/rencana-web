@@ -1,8 +1,9 @@
 <script setup lang="ts">
+const { $api } = useNuxtApp()
 const { t } = useI18n()
 const toast = useToast()
 const errorMessage = useErrorMessage()
-const { data: plans, refresh } = await useFetch<PlanListItem[]>('/api/plans', { default: () => [] })
+const { data: plans, refresh } = await useApi<PlanListItem[]>('/api/plans', { default: () => [] })
 
 const toDelete = ref<PlanListItem | null>(null)
 const confirmOpen = computed({
@@ -15,7 +16,7 @@ async function confirmDelete() {
   if (!toDelete.value) return
   deleting.value = true
   try {
-    await $fetch(`/api/plans/${toDelete.value.id}`, { method: 'DELETE' })
+    await $api(`/api/plans/${toDelete.value.id}`, { method: 'DELETE' })
     toDelete.value = null
     toast.add({ title: t('travel.tripDeleted'), color: 'neutral', icon: 'i-lucide-trash-2' })
     await refresh()

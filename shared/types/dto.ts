@@ -1,5 +1,39 @@
-import type { BudgetSummary } from '../utils/budget'
 import type { CostFrequency, ItemType, TicketKind } from '../utils/item-types'
+
+export interface SessionUser {
+  id: string
+  displayName: string
+  avatarUrl: string | null
+  locale: 'en' | 'id'
+  defaultCurrency: string
+}
+
+export interface MeDto extends SessionUser {
+  username: string | null
+  email: string | null
+}
+
+export interface BudgetCostLine {
+  id: string
+  days: number | null
+  total: number
+  currency: string
+  converted: number | null
+}
+
+export interface BudgetSummary {
+  currency: string
+  tripDays: number
+  itineraryTotal: number
+  byType: Partial<Record<ItemType, number>>
+  costs: BudgetCostLine[]
+  otherCostsTotal: number
+  grandTotal: number
+  budgetAmount: number | null
+  remaining: number | null
+  /** sorted, unique */
+  missingRates: string[]
+}
 
 export interface PlanListItem {
   id: string

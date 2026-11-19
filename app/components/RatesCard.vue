@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { $api } = useNuxtApp()
 const props = defineProps<{ planId: string, summary: SummaryDto }>()
 const emit = defineEmits<{ changed: [] }>()
 const { t } = useI18n()
@@ -33,7 +34,7 @@ function saveDraft(currency: string) {
 async function put(currency: string, rate: number | null) {
   pending.value = true
   try {
-    await $fetch(`/api/plans/${props.planId}/rates/${currency}`, { method: 'PUT', body: { rate } })
+    await $api(`/api/plans/${props.planId}/rates/${currency}`, { method: 'PUT', body: { rate } })
     editing.value = null
     emit('changed')
   } catch (e) {

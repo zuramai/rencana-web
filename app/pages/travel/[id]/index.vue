@@ -6,14 +6,14 @@ const router = useRouter()
 const { t } = useI18n()
 const id = route.params.id as string
 
-const { data: plan, error } = await useFetch<PlanDto>(`/api/plans/${id}`)
+const { data: plan, error } = await useApi<PlanDto>(`/api/plans/${id}`)
 if (error.value) throw createError({ statusCode: 404, statusMessage: t('errors.plan_not_found'), fatal: true })
 
 const [{ data: items, refresh: refreshItems }, { data: summary, refresh: refreshSummary }, { data: costs, refresh: refreshCosts }, { data: tickets, refresh: refreshTickets }] = await Promise.all([
-  useFetch<ItemDto[]>(`/api/plans/${id}/items`, { default: () => [] }),
-  useFetch<SummaryDto>(`/api/plans/${id}/summary`),
-  useFetch<CostDto[]>(`/api/plans/${id}/costs`, { default: () => [] }),
-  useFetch<TicketDto[]>(`/api/plans/${id}/tickets`, { default: () => [] })
+  useApi<ItemDto[]>(`/api/plans/${id}/items`, { default: () => [] }),
+  useApi<SummaryDto>(`/api/plans/${id}/summary`),
+  useApi<CostDto[]>(`/api/plans/${id}/costs`, { default: () => [] }),
+  useApi<TicketDto[]>(`/api/plans/${id}/tickets`, { default: () => [] })
 ])
 
 type Tab = 'itinerary' | 'costs' | 'tickets'

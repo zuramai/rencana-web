@@ -40,6 +40,7 @@
     "logout": "Log out"
   },
   "errors": {
+    "too_many_requests": "Too many attempts. Please wait a few minutes and try again.",
     "username_taken": "That username is taken. Try another one.",
     "invalid_credentials": "Wrong username or password.",
     "plan_not_found": "We couldn't find that trip.",

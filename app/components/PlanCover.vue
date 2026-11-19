@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<{
 
 const imageUrl = computed(() => {
   if (props.cover.coverType !== 'image') return null
-  return props.previewUrl ?? (props.cover.coverFileId ? `/api/files/${props.cover.coverFileId}?size=thumb` : null)
+  return props.previewUrl ?? (props.cover.coverFileId ? apiUrl(`/api/files/${props.cover.coverFileId}?size=thumb`) : null)
 })
 </script>
 

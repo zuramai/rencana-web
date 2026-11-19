@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { $api } = useNuxtApp()
 const open = defineModel<boolean>('open', { default: false })
 const props = defineProps<{ planId: string, ticket: TicketDto | null }>()
 const emit = defineEmits<{ saved: [] }>()
@@ -55,8 +56,8 @@ async function save() {
   for (const f of added.value) body.append('files', f.file)
   pending.value = true
   try {
-    if (props.ticket) await $fetch(`/api/plans/${props.planId}/tickets/${props.ticket.id}`, { method: 'PATCH', body })
-    else await $fetch(`/api/plans/${props.planId}/tickets`, { method: 'POST', body })
+    if (props.ticket) await $api(`/api/plans/${props.planId}/tickets/${props.ticket.id}`, { method: 'PATCH', body })
+    else await $api(`/api/plans/${props.planId}/tickets`, { method: 'POST', body })
     toast.add({ title: t('tickets.saved'), color: 'success', icon: 'i-lucide-check' })
     open.value = false
     emit('saved')
@@ -155,7 +156,7 @@ async function save() {
           >
             <img
               v-if="file.contentType.startsWith('image/')"
-              :src="`/api/files/${file.id}?size=thumb`"
+              :src="apiUrl(`/api/files/${file.id}?size=thumb`)"
               alt=""
               class="size-full object-cover"
             >

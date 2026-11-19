@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { $api } = useNuxtApp()
 const open = defineModel<boolean>('open', { default: false })
 const props = defineProps<{ planId: string, budgetCurrency: string, item: ItemDto | null, defaultStart: string }>()
 const emit = defineEmits<{ saved: [] }>()
@@ -82,8 +83,8 @@ async function save() {
   if (state.image) body.append('image', state.image)
   pending.value = true
   try {
-    if (props.item) await $fetch(`/api/plans/${props.planId}/items/${props.item.id}`, { method: 'PATCH', body })
-    else await $fetch(`/api/plans/${props.planId}/items`, { method: 'POST', body })
+    if (props.item) await $api(`/api/plans/${props.planId}/items/${props.item.id}`, { method: 'PATCH', body })
+    else await $api(`/api/plans/${props.planId}/items`, { method: 'POST', body })
     toast.add({ title: t('itinerary.saved'), color: 'success', icon: 'i-lucide-check' })
     open.value = false
     emit('saved')
@@ -98,7 +99,7 @@ async function remove() {
   if (!props.item) return
   pending.value = true
   try {
-    await $fetch(`/api/plans/${props.planId}/items/${props.item.id}`, { method: 'DELETE' })
+    await $api(`/api/plans/${props.planId}/items/${props.item.id}`, { method: 'DELETE' })
     toast.add({ title: t('itinerary.deleted'), color: 'neutral', icon: 'i-lucide-trash-2' })
     confirmOpen.value = false
     open.value = false

@@ -68,7 +68,7 @@ const endLabel = computed(() => {
       </div>
       <img
         v-if="item.imageFileId"
-        :src="`/api/files/${item.imageFileId}?size=thumb`"
+        :src="apiUrl(`/api/files/${item.imageFileId}?size=thumb`)"
         alt=""
         class="size-14 shrink-0 rounded-[14px] object-cover"
         loading="lazy"

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { $api } = useNuxtApp()
 const open = defineModel<boolean>('open', { default: false })
 const props = defineProps<{ planId: string, ticket: TicketDto | null }>()
 const emit = defineEmits<{ edit: [], deleted: [] }>()
@@ -22,7 +23,7 @@ async function remove() {
   if (!props.ticket) return
   pending.value = true
   try {
-    await $fetch(`/api/plans/${props.planId}/tickets/${props.ticket.id}`, { method: 'DELETE' })
+    await $api(`/api/plans/${props.planId}/tickets/${props.ticket.id}`, { method: 'DELETE' })
     toast.add({ title: t('tickets.deleted'), color: 'neutral', icon: 'i-lucide-trash-2' })
     confirmOpen.value = false
     open.value = false
@@ -69,7 +70,7 @@ async function remove() {
           >
             <a
               v-if="file.contentType === 'application/pdf'"
-              :href="`/api/files/${file.id}`"
+              :href="apiUrl(`/api/files/${file.id}`)"
               target="_blank"
               rel="noopener"
               class="block h-[400px] overflow-hidden rounded-[20px]"
@@ -78,7 +79,7 @@ async function remove() {
             </a>
             <img
               v-else
-              :src="`/api/files/${file.id}`"
+              :src="apiUrl(`/api/files/${file.id}`)"
               :alt="ticket.title"
               class="max-h-[60dvh] w-full rounded-[20px] object-contain"
             >

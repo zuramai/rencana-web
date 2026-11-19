@@ -20,7 +20,7 @@ const rows = computed(() => [
         :is="row.disabled ? 'div' : 'a'"
         v-for="row in rows"
         :key="row.kind"
-        :href="row.disabled ? undefined : `/api/plans/${planId}/export/${row.kind}`"
+        :href="row.disabled ? undefined : apiUrl(`/api/plans/${planId}/export/${row.kind}`)"
         :download="row.disabled ? undefined : ''"
         class="flex items-center gap-3 rounded-2xl bg-[#FAF6F0] p-3"
         :class="row.disabled ? 'opacity-50' : ''"

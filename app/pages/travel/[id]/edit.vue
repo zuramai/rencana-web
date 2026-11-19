@@ -6,7 +6,7 @@ const toast = useToast()
 const id = route.params.id as string
 const fromList = route.query.from === 'list'
 
-const { data: plan, error } = await useFetch<PlanDto>(`/api/plans/${id}`)
+const { data: plan, error } = await useApi<PlanDto>(`/api/plans/${id}`)
 if (error.value) throw createError({ statusCode: 404, statusMessage: t('errors.plan_not_found'), fatal: true })
 
 async function saved() {

@@ -2,13 +2,15 @@
 import type { CoverValue } from './CoverPicker.vue'
 import type { PeriodValue } from './PeriodInput.vue'
 
+const { $api } = useNuxtApp()
+
 const props = defineProps<{ plan?: PlanDto }>()
 const emit = defineEmits<{ saved: [id: string] }>()
 
 const { t } = useI18n()
 const toast = useToast()
 const errorMessage = useErrorMessage()
-const { user } = useUserSession()
+const { user } = useAuth()
 
 const p = props.plan
 const name = ref(p?.name ?? '')
@@ -54,8 +56,8 @@ async function submit() {
   pending.value = true
   try {
     const res = p
-      ? await $fetch<{ id: string }>(`/api/plans/${p.id}`, { method: 'PATCH', body })
-      : await $fetch<{ id: string }>('/api/plans', { method: 'POST', body })
+      ? await $api<{ id: string }>(`/api/plans/${p.id}`, { method: 'PATCH', body })
+      : await $api<{ id: string }>('/api/plans', { method: 'POST', body })
     emit('saved', res.id)
   } catch (e) {
     toast.add({ title: errorMessage(e), color: 'error' })

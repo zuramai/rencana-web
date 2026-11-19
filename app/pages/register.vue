@@ -1,8 +1,9 @@
 <script setup lang="ts">
+const { $api } = useNuxtApp()
 definePageMeta({ layout: 'auth' })
 
 const { locale } = useI18n()
-const { fetch: refreshSession } = useUserSession()
+const { refresh: refreshSession } = useAuth()
 const errorMessage = useErrorMessage()
 
 const form = reactive({ displayName: '', username: '', password: '' })
@@ -13,7 +14,7 @@ async function submit() {
   pending.value = true
   error.value = null
   try {
-    await $fetch('/api/auth/register', {
+    await $api('/api/auth/register', {
       method: 'POST',
       body: {
         ...form,

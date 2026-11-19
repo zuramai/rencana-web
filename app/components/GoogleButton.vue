@@ -1,8 +1,13 @@
 <script setup lang="ts">
+const { locale } = useI18n()
+
 function signIn() {
-  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
-  document.cookie = `rencana_tz=${encodeURIComponent(tz)}; path=/; max-age=600; samesite=lax`
-  navigateTo('/auth/google', { external: true })
+  const params = new URLSearchParams({
+    client: 'web',
+    locale: locale.value,
+    tz: Intl.DateTimeFormat().resolvedOptions().timeZone
+  })
+  window.location.assign(`${apiUrl('/auth/google')}?${params}`)
 }
 </script>
 

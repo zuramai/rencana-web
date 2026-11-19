@@ -1,13 +1,13 @@
 <script setup lang="ts">
+const { $api } = useNuxtApp()
 definePageMeta({ topBar: false })
 
 const { t } = useI18n()
 const toast = useToast()
 const errorMessage = useErrorMessage()
-const { user, fetch: refreshSession, clear } = useUserSession()
+const { user, refresh: refreshSession, clear } = useAuth()
 const localeCookie = useCookie<'en' | 'id' | null>('rencana_locale', { maxAge: 60 * 60 * 24 * 365, sameSite: 'lax' })
 
-const { data: me } = await useFetch('/api/me')
 const form = reactive({
   displayName: user.value?.displayName ?? '',
   locale: user.value?.locale ?? 'en',
@@ -23,7 +23,7 @@ const initial = computed(() => form.displayName.trim().charAt(0).toUpperCase() |
 async function save() {
   pending.value = true
   try {
-    await $fetch('/api/me', { method: 'PATCH', body: form })
+    await $api('/api/me', { method: 'PATCH', body: form })
     localeCookie.value = form.locale
     await refreshSession()
     toast.add({ title: t('settings.saved'), color: 'success', icon: 'i-lucide-check' })
@@ -35,8 +35,8 @@ async function save() {
 }
 
 async function logout() {
-  await $fetch('/api/auth/logout', { method: 'POST' })
-  await clear()
+  await $api('/api/auth/logout', { method: 'POST' })
+  clear()
   await navigateTo('/login')
 }
 </script>
@@ -60,13 +60,13 @@ async function logout() {
         class="flex size-[88px] items-center justify-center rounded-full bg-secondary-400 text-[28px] font-extrabold text-white"
       >{{ initial }}</span>
       <span
-        v-if="me?.username"
+        v-if="user?.username"
         class="text-[13px] font-semibold text-muted"
-      >@{{ me.username }}</span>
+      >@{{ user.username }}</span>
       <span
-        v-else-if="me?.email"
+        v-else-if="user?.email"
         class="text-[13px] font-semibold text-muted"
-      >{{ me.email }}</span>
+      >{{ user.email }}</span>
     </div>
     <form
       class="flex flex-col gap-4"
