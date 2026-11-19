@@ -1,5 +1,15 @@
 # Rencana
 
+<p align="center">
+  <img src="public/mascot/wave.svg" width="120" alt="Koper the suitcase waving">
+</p>
+
+<p align="center">
+  <img src="design/exports/03%20Travel%20list.png" width="260" alt="Trip list">
+  <img src="design/exports/06%20Plan%20detail%20itinerary.png" width="260" alt="Plan itinerary">
+  <img src="design/exports/09%20Costs%20tab.png" width="260" alt="Budget and costs">
+</p>
+
 Mobile-first travel & budget planner with Koper the suitcase. Plan trips (itinerary, other expected costs, tickets), see the budget in your trip currency, and export everything as PDF or Excel. The **Budget** menu is a placeholder for now.
 
 Stack: Nuxt 4 + Nuxt UI 4, `nuxt-auth-utils` (username/password + Google), `@nuxtjs/i18n` (English, Bahasa Indonesia), Drizzle ORM on PostgreSQL, S3-compatible storage (MinIO in dev), pdfmake / exceljs / pdf-lib for exports.
