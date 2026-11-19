@@ -30,6 +30,16 @@ const period = ref<PeriodValue>({
 })
 const budgetCurrency = ref(p?.budgetCurrency ?? user.value?.defaultCurrency ?? 'USD')
 const budgetAmount = ref(amountToInput(p?.budgetAmount))
+const NO_ZONE = '__none__'
+const browserZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+const timeZone = ref(p ? (p.timeZone ?? NO_ZONE) : (browserZone || NO_ZONE))
+const zones = Intl.supportedValuesOf('timeZone')
+if (timeZone.value !== NO_ZONE && !zones.includes(timeZone.value)) zones.unshift(timeZone.value)
+const zoneItems = computed(() => [
+  { value: NO_ZONE, label: t('plan.timeZoneNone') },
+  ...zones.map(z => ({ value: z, label: z.replaceAll('_', ' ') }))
+])
+const zoneLabel = computed(() => zoneItems.value.find(z => z.value === timeZone.value)?.label ?? timeZone.value)
 const pending = ref(false)
 
 async function submit() {
@@ -47,7 +57,8 @@ async function submit() {
     endYear: period.value.mode === 'range' ? period.value.endYear : null,
     endMonth: period.value.mode === 'range' ? period.value.endMonth : null,
     budgetCurrency: budgetCurrency.value,
-    budgetAmount: normalizeAmount(budgetAmount.value)
+    budgetAmount: normalizeAmount(budgetAmount.value),
+    timeZone: timeZone.value === NO_ZONE ? null : timeZone.value
   }
   const body = new FormData()
   body.append('data', JSON.stringify(data))
@@ -86,6 +97,24 @@ async function submit() {
       />
     </UFormField>
     <PeriodInput v-model="period" />
+    <UFormField
+      :label="$t('plan.timeZone')"
+      :hint="$t('plan.timeZoneHint')"
+      name="timeZone"
+    >
+      <USelectMenu
+        v-model="timeZone"
+        :items="zoneItems"
+        value-key="value"
+        :search-input="{ placeholder: 'Asia/Jakarta…' }"
+        class="w-full"
+        trailing-icon="i-lucide-chevron-down"
+      >
+        <template #default>
+          <span class="truncate">{{ zoneLabel }}</span>
+        </template>
+      </USelectMenu>
+    </UFormField>
     <UFormField
       :label="$t('plan.expectedBudget')"
       name="budget"

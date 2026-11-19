@@ -6,6 +6,7 @@ const { t } = useI18n()
 const rows = computed(() => [
   { kind: 'itinerary-pdf', icon: 'i-lucide-file-text', color: '#EF4444', title: t('export.itineraryPdf'), sub: t('export.itineraryPdfSub'), disabled: false },
   { kind: 'itinerary-xlsx', icon: 'i-lucide-file-spreadsheet', color: '#16A34A', title: t('export.itineraryXlsx'), sub: t('export.itineraryXlsxSub'), disabled: false },
+  { kind: 'calendar-ics', icon: 'i-lucide-calendar-plus', color: '#0EA5E9', title: t('export.calendarIcs'), sub: t('export.calendarIcsSub'), disabled: false },
   { kind: 'tickets-pdf', icon: 'i-lucide-ticket', color: '#3B82F6', title: t('export.ticketsPdf'), sub: props.hasTickets ? t('export.ticketsPdfSub') : t('export.noTickets'), disabled: !props.hasTickets }
 ])
 </script>

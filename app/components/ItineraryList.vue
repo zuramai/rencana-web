@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{ items: ItemDto[] }>()
+const props = defineProps<{ items: ItemDto[], timeZone: string | null }>()
 defineEmits<{ open: [item: ItemDto], add: [] }>()
 const { dayLabel } = useFormat()
 const days = computed(() => groupByDay(props.items))
@@ -23,6 +23,7 @@ const days = computed(() => groupByDay(props.items))
         v-for="item in day.items"
         :key="item.id"
         :item="item"
+        :time-zone="timeZone"
         @open="$emit('open', item)"
       />
     </template>

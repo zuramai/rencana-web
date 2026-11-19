@@ -91,7 +91,10 @@
       "itinerary": "Itinerary",
       "costs": "Biaya",
       "tickets": "Tiket"
-    }
+    },
+    "timeZone": "Zona waktu tujuan",
+    "timeZoneHint": "Acara kalender memakai zona ini.",
+    "timeZoneNone": "Tidak diatur (pakai zona kalender saya)"
   },
   "itemTypes": {
     "attraction": "Atraksi",
@@ -215,7 +218,9 @@
     "itineraryXlsxSub": "Excel · 3 sheet yang bisa diubah",
     "ticketsPdf": "Semua tiket",
     "ticketsPdfSub": "PDF · semua tiket dalam satu berkas",
-    "noTickets": "Belum ada tiket"
+    "noTickets": "Belum ada tiket",
+    "calendarIcs": "Kalender",
+    "calendarIcsSub": "iCalendar (.ics) · impor ke Google Kalender"
   },
   "budget": {
     "title": "Anggaran",
@@ -268,5 +273,8 @@
     "yes": "Ya",
     "no": "Tidak",
     "noItems": "Belum ada aktivitas."
+  },
+  "calendar": {
+    "addToGoogle": "Tambah ke Google Kalender"
   }
 }

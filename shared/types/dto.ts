@@ -51,6 +51,8 @@ export interface PlanListItem {
 export interface PlanDto extends PlanListItem {
   budgetCurrency: string
   budgetAmount: string | null
+  /** IANA zone of the destination, or null (calendar exports then use the viewer's zone). */
+  timeZone: string | null
   createdAt: string
   updatedAt: string
 }

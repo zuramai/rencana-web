@@ -91,7 +91,10 @@
       "itinerary": "Itinerary",
       "costs": "Costs",
       "tickets": "Tickets"
-    }
+    },
+    "timeZone": "Destination time zone",
+    "timeZoneHint": "Calendar events use this zone.",
+    "timeZoneNone": "Not set (use my calendar's zone)"
   },
   "itemTypes": {
     "attraction": "Attraction",
@@ -215,7 +218,9 @@
     "itineraryXlsxSub": "Excel · 3 sheets you can edit",
     "ticketsPdf": "All tickets",
     "ticketsPdfSub": "PDF · every ticket in one file",
-    "noTickets": "No tickets yet"
+    "noTickets": "No tickets yet",
+    "calendarIcs": "Calendar",
+    "calendarIcsSub": "iCalendar (.ics) · import into Google Calendar"
   },
   "budget": {
     "title": "Budget",
@@ -268,5 +273,8 @@
     "yes": "Yes",
     "no": "No",
     "noItems": "No activities yet."
+  },
+  "calendar": {
+    "addToGoogle": "Add to Google Calendar"
   }
 }

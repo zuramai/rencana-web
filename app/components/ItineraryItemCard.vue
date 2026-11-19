@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{ item: ItemDto }>()
+const props = defineProps<{ item: ItemDto, timeZone: string | null }>()
 defineEmits<{ open: [] }>()
 const { money, dayLabel } = useFormat()
 
@@ -34,10 +34,7 @@ const endLabel = computed(() => {
         <p class="font-semibold break-words">
           {{ item.description }}
         </p>
-        <div
-          v-if="item.price != null || item.link"
-          class="flex flex-wrap items-center gap-2"
-        >
+        <div class="flex flex-wrap items-center gap-2">
           <span
             v-if="item.price != null && item.currency"
             class="rounded-full bg-[#E0F2F1] px-2 py-0.5 text-xs font-semibold text-primary-700"
@@ -57,6 +54,19 @@ const endLabel = computed(() => {
               class="size-3.5"
             />
             {{ $t('itinerary.link') }}
+          </a>
+          <a
+            :href="googleCalendarUrl(item, timeZone)"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-1 text-xs font-semibold text-primary"
+            @click.stop
+          >
+            <UIcon
+              name="i-lucide-calendar-plus"
+              class="size-3.5"
+            />
+            {{ $t('calendar.addToGoogle') }}
           </a>
         </div>
         <p

@@ -111,6 +111,7 @@ const exportOpen = ref(false)
     <template v-if="tab === 'itinerary'">
       <ItineraryList
         :items="items"
+        :time-zone="plan?.timeZone ?? null"
         @open="openItem"
         @add="openItem(null)"
       />

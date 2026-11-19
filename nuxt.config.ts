@@ -69,6 +69,7 @@ export default defineNuxtConfig({
         'lucide:bed-double',
         'lucide:bus',
         'lucide:calendar',
+        'lucide:calendar-plus',
         'lucide:check',
         'lucide:chevron-down',
         'lucide:circle-alert',

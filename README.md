@@ -10,7 +10,7 @@
   <img src="design/exports/09%20Costs%20tab.png" width="260" alt="Budget and costs">
 </p>
 
-Mobile-first travel & budget planner with Koper the suitcase. Plan trips (itinerary, other expected costs, tickets), see the budget in your trip currency, and export everything as PDF or Excel. The **Budget** menu is a placeholder for now.
+Mobile-first travel & budget planner with Koper the suitcase. Plan trips (itinerary, other expected costs, tickets), see the budget in your trip currency, and export everything as PDF, Excel or an iCalendar file. Each itinerary item also has an "Add to Google Calendar" link (prefilled event in the trip's destination time zone), and the Calendar export (`.ics`) imports the whole itinerary into Google Calendar. The **Budget** menu is a placeholder for now.
 
 This repo is the **web client**: a client-only Nuxt 4 SPA (`ssr: false`) that talks to [`rencana-backend`](https://github.com/zuramai/rencana-backend) (Hono API). A Kotlin Multiplatform app lives in [`rencana-mobile`](https://github.com/zuramai/rencana-mobile).
 
@@ -53,7 +53,8 @@ The web app and the API must share a registrable domain (e.g. `app.example.com` 
 
 ## Notes
 
-- Itinerary times are wall-clock times at the destination (stored without time zone).
+- Itinerary times are wall-clock times at the destination (stored without time zone). A trip can store the destination's IANA time zone (defaults to the browser's for new trips); Google Calendar links and the `.ics` export use it to place events, otherwise they follow the viewer's calendar zone.
+- `shared/utils/calendar.ts` mirrors the backend's file of the same name; change both.
 - Prices in other currencies are converted into the trip's budget currency with rates from [Frankfurter](https://frankfurter.dev), refreshed daily; each rate can be overridden per trip. Currencies Frankfurter doesn't cover need a manual rate and are flagged until set.
 - The default currency of a new account comes from the browser time zone (Asia/Jakarta → IDR), falling back to the `Accept-Language` region, then USD.
 - The backend re-encodes uploaded images to JPEG (max 2000 px) with a 480 px thumbnail; tickets also accept PDFs.
